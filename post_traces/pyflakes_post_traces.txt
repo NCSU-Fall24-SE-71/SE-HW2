@@ -1,0 +1,2 @@
+PS D:\anshg\Masters\Fall24\SE\hw2> pyflakes .\hw2_debugging.py
+PS D:\anshg\Masters\Fall24\SE\hw2> pyflakes .\rand.py

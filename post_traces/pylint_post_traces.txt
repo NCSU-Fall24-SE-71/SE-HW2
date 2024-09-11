@@ -1,0 +1,9 @@
+PS D:\anshg\Masters\Fall24\SE\hw2> pylint .\hw2_debugging.py
+
+-------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 7.92/10, +2.08)
+
+PS D:\anshg\Masters\Fall24\SE\hw2> pylint .\rand.py
+
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
