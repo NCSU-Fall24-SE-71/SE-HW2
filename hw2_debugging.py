@@ -11,7 +11,7 @@ def merge_sort(input_arr):
     half = len(input_arr) // 2
 
     return recombine(merge_sort(input_arr[:half]), merge_sort(input_arr[half:]))
- 
+
 
 def recombine(left_arr, right_arr):
     """method used to recombine subarrays"""

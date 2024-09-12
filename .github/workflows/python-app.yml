@@ -46,11 +46,14 @@ jobs:
         name: pyright-trace
         path: ./post_traces/pyright_trace.txt
         if-no-files-found: warn
-    - name: Run PyLint with dynamic badge
-      uses: Silleellie/pylint-github-action@v2
+    - name: Run PyLint
+      run: pylint ./hw2_debugging.py ./rand.py > ./post_traces/pylint_trace.txt
+    - name: Upload PyLint Trace
+      uses: actions/upload-artifact@v3
       with:
-        lint-path: hw2_debugging.py
-        python-version: 3.13.0-rc.1
+        name: pylint-trace
+        path: ./post_traces/pylint_trace.txt
+        if-no-files-found: warn
     - name: Run tests with coverage report 
       run: |
         pytest --cov=. --cov-report=json:coverage.json --continue-on-collection-errors
