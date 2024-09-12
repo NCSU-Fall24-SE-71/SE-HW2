@@ -1,0 +1,68 @@
+name: SE-71 HW2 CSC510 Workflow
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.13.0-rc.1"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Install packages
+      run: |
+        pip install pyflakes
+        pip install pyright
+        pip install pylint
+        pip install pytest coverage coverage-badge pytest-cov
+    - name: Run pyflakes
+      run: |
+        pyflakes ./rand.py ./hw2_debugging.py > ./post_traces/pyflakes_trace.txt
+    - name: Upload pyflakes Trace
+      uses: actions/upload-artifact@v3
+      with:
+        name: pyflakes-trace
+        path: ./post_traces/pyflakes_trace.txt
+        if-no-files-found: warn  # This will upload the artifact even if no changes were made
+    - name: Run Pyright
+      run: pyright --verbose hw2_debugging.py rand.py > ./post_traces/pyright_trace.txt
+    - name: Upload Pyright Trace
+      uses: actions/upload-artifact@v3
+      with:
+        name: pyright-trace
+        path: ./post_traces/pyright_trace.txt
+        if-no-files-found: warn
+    - name: Run PyLint with dynamic badge
+      uses: Silleellie/pylint-github-action@v2
+      with:
+        lint-path: hw2_debugging.py
+        python-version: 3.13.0-rc.1
+    - name: Run tests with coverage report 
+      run: |
+        pytest --cov=. --cov-report=json:coverage.json --continue-on-collection-errors
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage.json
+    - name: Running Coverage Badge
+      run: |
+        coverage-badge -o coverage.svg
+    - name: Run tests on testfile
+      run: |
+        pytest -v
