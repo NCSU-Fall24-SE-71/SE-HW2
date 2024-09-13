@@ -25,10 +25,14 @@ jobs:
         python -m pip install --upgrade pip
     - name: Install packages
       run: |
+        pip install autopep8
         pip install pyflakes
         pip install pyright
         pip install pylint
         pip install pytest coverage coverage-badge pytest-cov
+    - name: Run autopep8
+      run: |
+        autopep8 .\hw2_debugging.py .\rand.py > ./post_traces/autopep8_output.txt
     - name: Run pyflakes
       run: |
         pyflakes ./rand.py ./hw2_debugging.py > ./post_traces/pyflakes_trace.txt
