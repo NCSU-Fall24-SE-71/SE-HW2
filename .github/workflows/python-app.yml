@@ -33,7 +33,7 @@ jobs:
     - name: Run autopep8
       run: |
         autopep8 --aggressive --diff .\hw2_debugging.py .\rand.py > ./post_traces/autopep8_output.txt
-     - name: Upload autopep8 trace
+    - name: Upload autopep8 trace
       uses: actions/upload-artifact@v3
       with:
         name: autopep8-trace
