@@ -30,7 +30,7 @@ jobs:
         pip install pyright
         pip install pylint
         pip install pytest coverage coverage-badge pytest-cov
-    - name: Run autopep8
+    - name: Run autopep8 
       run: |
         autopep8 --aggressive --diff hw2_debugging.py rand.py > ./post_traces/autopep8_output.txt
     - name: Upload autopep8 trace
