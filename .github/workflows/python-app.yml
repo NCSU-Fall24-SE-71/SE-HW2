@@ -32,7 +32,13 @@ jobs:
         pip install pytest coverage coverage-badge pytest-cov
     - name: Run autopep8
       run: |
-        autopep8 .\hw2_debugging.py .\rand.py > ./post_traces/autopep8_output.txt
+        autopep8 --aggressive --diff .\hw2_debugging.py .\rand.py > ./post_traces/autopep8_output.txt
+     - name: Upload autopep8 trace
+      uses: actions/upload-artifact@v3
+      with:
+        name: autopep8-trace
+        path: ./post_traces/autopep8_output.txt
+        if-no-files-found: warn 
     - name: Run pyflakes
       run: |
         pyflakes ./rand.py ./hw2_debugging.py > ./post_traces/pyflakes_trace.txt
